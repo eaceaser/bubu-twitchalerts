@@ -1,0 +1,9 @@
+{
+  "name": "bubu-twitchalerts",
+  "version": "0.1.0",
+  "homepage": "https://github.com/eaceaser/bubu-twitchalerts",
+  "description": "Connects to the TwitchAlerts API for other bundles to use.",
+  "main": "extension.js",
+  "author": "Ed Ceaser <ed@tehasdf.com>",
+  "license": "MIT"
+}

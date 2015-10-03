@@ -1,0 +1,8 @@
+[
+  {
+    "name": "twitchalerts",
+    "title": "TwitchAlerts Status",
+    "width": 2,
+    "file": "panel.jade"
+  }
+]

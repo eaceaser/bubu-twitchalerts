@@ -1,0 +1,1 @@
+$.get('/bubu-twitchalerts/check');
