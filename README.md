@@ -1,12 +1,12 @@
 # bubu-twitchalerts
 
-This is a meta-bundle for [NodeCG](Ihttp://github.com/nodecg/nodecg). It doesn't provide any display functionality on its own, it simply
-provides a handle to the TwitchAlerts API for other bundles.
+This is a meta-bundle for [NodeCG](http://github.com/nodecg/nodecg). It doesn't provide any display functionality on its own, it simply
+provides a handle to an authenticated TwitchAlerts API context for other bundles to use.
 
 ## Installation
 
-- Install to `nodecg/bundles/bubu-twitchalerts` - either clone this repository, or extract the zip archive.
-- Create a config file in `nodecg/cfg/bubu-twitchalerts.json`.
+1. Install to `nodecg/bundles/bubu-twitchalerts`. Either clone this repository, or extract the zip archive from the GitHub project page.
+2. Create a config file in `nodecg/cfg/bubu-twitchalerts.json`. See the Configuration section for more details.
 
 ### Configuration
 
@@ -22,5 +22,12 @@ provides a handle to the TwitchAlerts API for other bundles.
 }
 ```
 
-### License
+## Known Issues
+
+* Currently supports only a single logged in user per NodeCG instance.
+* Error handling is brittle.
+
+Please file all bug reports as GitHub issues.
+
+## License
 This project is licensed under the [MIT License](LICENSE)

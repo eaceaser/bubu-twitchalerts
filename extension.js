@@ -2,9 +2,11 @@ var express = require('express');
 var app = express();
 var passport = require('passport');
 var TwitchAlertsStrategy = require('./src/strategy.js');
+var API = require('./src/api.js');
 
 function TwitchAlerts(nodecg) {
   this.config = nodecg.bundleConfig;
+  this.api = null;
 
   if (!Object.keys(this.config).length) {
     throw new Error("No config file found in cfg/bubu-twitchalerts.json.");
@@ -42,6 +44,9 @@ function TwitchAlerts(nodecg) {
       twitchalertsReplicant.value = {
         provider: req.user.provider
       };
+
+      nodecg.log.info("Discovered TwitchAlerts API access.");
+      this.api = new API(req.user.accessToken);
       res.redirect('/dashboard');
     }
   );
@@ -49,7 +54,12 @@ function TwitchAlerts(nodecg) {
   // Stole this pattern from the twitchapi bundle. There's gotta be a better way :(
   app.get('/bubu-twitchalerts/check', (req, res) => {
     if (req.session.bubuTwitchAlerts) {
-      twitchalertsReplicant.value = req.session.bubuTwitchAlerts;
+      twitchalertsReplicant.value = {
+        provider: req.session.bubuTwitchAlerts.provider
+      };
+
+      nodecg.log.info("Discovered TwitchAlerts API access.");
+      this.api = new API(req.session.bubuTwitchAlerts.accessToken);
     }
     res.sendStatus(200);
   });
@@ -57,6 +67,24 @@ function TwitchAlerts(nodecg) {
   app.use(passport.initialize());
   nodecg.mount(app);
 }
+
+TwitchAlerts.prototype.getDonations = function(options, callback) {
+  if (!this.api) {
+    return callback("Must be logged into TwitchAlerts.");
+  }
+
+  this.api.get('/donations', options, (err, status, resp) => {
+    if (err) {
+      return callback(err);
+    }
+
+    if (status != 200) {
+      return callback("Unknown response code: "+status);
+    }
+
+    callback(null, resp);
+  });
+};
 
 module.exports = function(api) {
   return new TwitchAlerts(api);
