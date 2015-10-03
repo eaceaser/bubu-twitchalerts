@@ -5,5 +5,8 @@
   "description": "Connects to the TwitchAlerts API for other bundles to use.",
   "main": "extension.js",
   "author": "Ed Ceaser <ed@tehasdf.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "passport-oauth": "^1.0.0"
+  }
 }
